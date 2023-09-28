@@ -1,6 +1,6 @@
 import discord,os,datetime
 from lib.logger import write_log
-TOKEN = "MTE1Njk3NTc0OTgzNjg1MzI4MA.G7PUr7.gbh-vJ1ymcJfT3i5qRHte5XSNLuDJSNP55y758"
+TOKEN = ""
 # check log file
 while True():
 	log_file = input('input log file name[name => log_file/n => no log]:')
