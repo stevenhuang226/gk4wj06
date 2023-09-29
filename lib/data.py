@@ -78,6 +78,26 @@ class data_storage:
 		result = self.cursor.fetchall()
 		col_value = [info[1] for info in result]
 		return col_value
+	async def append_col(self,table_name,new_col,new_col_datatype):
+		"""
+		新增一個鍵(col)
+		new_col => 鍵 的名稱
+		new_col_datatype => 鍵 的值 的資料類型
+		"""
+		sqlcmd= f"ALTER TABLE {table_name}\nADD {new_col} {new_col_datatype}"
+		self.cursor.execute(sqlcmd)
+	async def append_col_p(self,table_name,new_col,new_col_datatype):
+		"""
+		新增一個鍵(col)
+		new_col => 鍵 的名稱
+		new_col_datatype => 鍵 的值 的資料類型
+		#如果鍵已經存在，將不作為
+		"""
+		if new_col not in await self.get_col(table_name):
+			sqlcmd= f"ALTER TABLE {table_name}\nADD {new_col} {new_col_datatype}"
+			self.cursor.execute(sqlcmd)
+		else:
+			pass
 	async def select_id(self,table_name,id,id_name='ID',pdict=False):
 		"""
 		(table_name,id)
@@ -90,12 +110,9 @@ class data_storage:
 		"""
 		sqlcmd = (f"SELECT * FROM {table_name} WHERE {id_name} = {id}")
 		self.cursor.execute(sqlcmd)
-		result = self.cursor.fetchall()
+		result = self.cursor.fetchone()
 		description_result = self.cursor.description
-		value_list = []
-		for row in result:
-			for i in range(len(row)):
-				value_list.append(row[i])
+		value_list = list(result)
 		if pdict:
 			cvdict = {}
 			for index,description in enumerate(description_result):
