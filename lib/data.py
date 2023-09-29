@@ -70,6 +70,9 @@ class data_storage:
 		self.cursor.execute(''.join(split_text))
 		self.sql.commit()
 	async def get_col(self,table_name):
+		"""
+		數入table_name獲取col內容
+		"""
 		sqlcmd = f"PRAGMA table_info ({table_name})"
 		self.cursor.execute(sqlcmd)
 		result = self.cursor.fetchall()
@@ -116,6 +119,9 @@ class data_storage:
 			value_list.append(list(row))
 		return value_list
 	async def select_all(self,table_name):
+		"""
+		獲取整個table的內容（list輸出）
+		"""
 		sqlcmd = f"SELECT * FROM {table_name}"
 		self.cursor.execute(sqlcmd)
 		result = self.cursor.fetchall()
