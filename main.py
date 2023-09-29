@@ -12,7 +12,7 @@ while True():
 		log_file = False
 		break
 logger = write_log(log_file)
-logger.write('discord bot start')
+logger.write(f'discord bot start at {os.getcwd()}')
 
 # 初始化discord參數
 intents = discord.Intents.default()

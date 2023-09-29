@@ -23,7 +23,14 @@ class data_storage:
 			self.cursor.execute('\n'.join(split_text))
 			self.sql.commit()
 			# return f'{table_name} created'
-	async def update(self,table_name,key,value):
+	async def insert_info(self,table_name,list(column),list(value)):
 		pass
-	async def sync(self,table_name,key,value):
+	async def update(self,table_name,list(column),list(value),str(where)):
 		pass
+	async def sync(self,table_name,list(column),list(value),str(where)='new'):
+		pass
+	async def select_fr_id(self.table_name,data_id):
+		pass
+	async def select_sc(self,tale_name,column_name):
+		pass
+	
