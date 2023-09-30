@@ -41,15 +41,23 @@ bot = commands.Bot(command_prefix='$',case_insensitive=True,intents=intents)
 async def on_ready():
 	logger.write(f'logged as {client.user}')
 	logger.write(f'server list {", ".join([element.name for element in client.guilds])}')
+	for guild in client.guilds:
+		await sql.create_table_p(str(guild.id),{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
 @client.event
 async def on_message(message):
+	guild_id = str(message.guild.id)
 	if message.bot == False:
-		await sql.create_table_p('discord',{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
-		user_sql_info = sql.select_id('discord',message.author.id,'ID',True)
+		user_sql_info = sql.select_id(guild_id,message.author.id,'ID',True)
 		if user_sql_info:
-			await sql.update('discord',{'speaktimes':user_sql_info.speaktimes+1})
+			await sql.update(guild_id,{'speaktimes':user_sql_info.speaktimes+1})
 		else:
-			await sql.insert_into('discord',['ID','name','speaktimes'],[message.author.id,message.author.name,1])
+			await sql.insert_into(guild_id,['ID','name','speaktimes'],[message.author.id,message.author.name,1])
+@bot.command()
+async def lsuser(ctx):
+	await ctx.send(await lsuser().lsuser(ctx))
+@bot.command()
+async def lssql(ctx,*arg):
+	await ctx.send(await lssql().botshow(ctx,db_file,ctx.guild.id,list(arg)))
 ###
 #@bot.command()
 #async def lsuser(ctx):
