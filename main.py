@@ -1,9 +1,11 @@
 import discord,os,datetime,asyncio
 from discord.ext import commands
+from dotenv import load_dotenv
 from lib.logger import write_log
 from lib.cmd import *
 from lib.data import data_storage
-TOKEN = ""
+load_dotenv()
+TOKEN = os.getenv('DC_TOKEN')
 sql = data_storage()
 logger = write_log()
 # check log file
