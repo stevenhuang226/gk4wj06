@@ -1,6 +1,6 @@
 import datetime,os
 class write_log:
-	def finit(self,log_file):
+	def init(self,log_file):
 		if (log_file == False):
 			self.log_file == False
 		else:
