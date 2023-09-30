@@ -34,7 +34,7 @@ while True:
 # 初始化discord參數
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
-bot = commands.Bot(command_prefix='$',intents=intents)
+bot = commands.Bot(command_prefix='$',case_insensitive=True,intents=intents)
 
 
 @client.event
@@ -42,7 +42,7 @@ async def on_ready():
 	logger.write(f'logged as {client.user}')
 	logger.write(f'server list {", ".join([element.name for element in client.guilds])}')
 @client.event
-async def on_message():
+async def on_message(message):
 	if message.bot == False:
 		await sql.create_table_p('discord',{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
 		user_sql_info = sql.select_id('discord',message.author.id,'ID',True)
@@ -50,11 +50,18 @@ async def on_message():
 			await sql.update('discord',{'speaktimes':user_sql_info.speaktimes+1})
 		else:
 			await sql.insert_into('discord',['ID','name','speaktimes'],[message.author.id,message.author.name,1])
-@bot.command()
-async def lsuser(ctx):
-	await ctx.send(await lsuser().lsuser(ctx))
-async def lssql(ctx,*arg):
-	await ctx.send(await lssql().botshow(ctx,db_file,*arg))
-async def man(ctx,arg):
-	if arg == 'lsuser':
-		await ctx.send(await lsuser().man())
+###
+#@bot.command()
+#async def lsuser(ctx):
+#	await ctx.send(await lsuser().lsuser(ctx))
+#async def lssql(ctx,*arg):
+#	arg_list = list(arg)
+#	await ctx.send(await lssql().botshow(ctx,db_file,arg_list))
+#async def man(ctx,arg):
+#	"""
+#	ctx => 指令內容
+#	arg => 顯示「指令」的說明文檔
+#	"""
+#	if arg == 'lsuser':
+#		await ctx.send(await lsuser().man())
+###
