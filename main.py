@@ -61,5 +61,5 @@ async def lsuser(ctx):
 	await ctx.send(await lsuser().lsuser(ctx))
 @bot.command()
 async def lssql(ctx,*arg):
-	await ctx.send(await lssql().botshow(ctx,db_file,ctx.guild.id,list(arg)))
+	await ctx.send(await lssql().botshow(ctx,db_file,sql_h.tran_table_name(ctx.guild.id),list(arg)))
 client.run(TOKEN)
