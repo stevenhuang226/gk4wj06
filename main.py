@@ -49,7 +49,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
 	guild_id = str(message.guild.id)
-	if message.bot == False:
+	if not message.author.bot:
 		user_sql_info = sql.select_id(guild_id,message.author.id,'ID',True)
 		if user_sql_info:
 			await sql.update(guild_id,{'speaktimes':user_sql_info.speaktimes+1})
