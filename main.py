@@ -5,7 +5,7 @@ from lib.logger import write_log
 from lib.cmd import *
 from lib.data import data_storage
 load_dotenv()
-TOKEN = os.getenv('DC_TOKEN')
+TOKEN = os.getenv()
 sql = data_storage()
 logger = write_log()
 # check log file
