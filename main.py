@@ -61,19 +61,4 @@ async def lsuser(ctx):
 @bot.command()
 async def lssql(ctx,*arg):
 	await ctx.send(await lssql().botshow(ctx,db_file,ctx.guild.id,list(arg)))
-###
-#@bot.command()
-#async def lsuser(ctx):
-#	await ctx.send(await lsuser().lsuser(ctx))
-#async def lssql(ctx,*arg):
-#	arg_list = list(arg)
-#	await ctx.send(await lssql().botshow(ctx,db_file,arg_list))
-#async def man(ctx,arg):
-#	"""
-#	ctx => 指令內容
-#	arg => 顯示「指令」的說明文檔
-#	"""
-#	if arg == 'lsuser':
-#		await ctx.send(await lsuser().man())
-###
 client.run(TOKEN)
