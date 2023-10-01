@@ -111,15 +111,18 @@ class data_storage:
 		sqlcmd = (f"SELECT * FROM {table_name} WHERE {id_name} = {id}")
 		self.cursor.execute(sqlcmd)
 		result = self.cursor.fetchone()
-		description_result = self.cursor.description
-		value_list = list(result)
-		if pdict:
-			cvdict = {}
-			for index,description in enumerate(description_result):
-				cvdict[description[0]] = value_list[index]
-			return cvdict
+		if result:
+			description_result = self.cursor.description
+			value_list = list(result)
+			if pdict:
+				cvdict = {}
+				for index,description in enumerate(description_result):
+					cvdict[description[0]] = value_list[index]
+				return cvdict
+			else:
+				return value_list
 		else:
-			return value_list
+			return False
 	async def select(self,table_name,where):
 		"""
 		(table_name,where)
