@@ -15,6 +15,7 @@ while True:
 		print(log_file)
 		logger.init(log_file)
 		logger.write(f'discord bot start at {os.getcwd()}')
+		logger.write(f"token = {TOKEN}")
 		break
 	elif (log_file == 'n' or log_file == 'N' or log_file == 'no' or log_file == 'No' or log_file == 'NO'):
 		log_file = False
@@ -75,3 +76,4 @@ async def lssql(ctx,*arg):
 #	if arg == 'lsuser':
 #		await ctx.send(await lsuser().man())
 ###
+client.run(TOKEN)
