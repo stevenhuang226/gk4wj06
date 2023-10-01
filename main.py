@@ -51,7 +51,7 @@ async def on_ready():
 async def on_message(message):
 	guild_id = str(message.guild.id)
 	if not message.author.bot:
-		user_sql_info = sql.select_id(guild_id,message.author.id,'ID',True)
+		user_sql_info = sql.select_id(sql_h.tran_table_name(guild_id),message.author.id,'ID',True)
 		if user_sql_info:
 			await sql.update(sql_h.tran_table_name(guild_id),{'speaktimes':user_sql_info.speaktimes+1})
 		else:
