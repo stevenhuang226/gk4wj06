@@ -148,3 +148,6 @@ class data_storage:
 		return value_list
 	def close(self):
 		self.sql.close()
+class sql_help:
+	def tran_table_name(self,table_name):
+		return (f"_{str(table_name)}")

@@ -3,10 +3,11 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from lib.logger import write_log
 from lib.cmd import *
-from lib.data import data_storage
+from lib.data import *
 load_dotenv()
 TOKEN = os.getenv('DC_TOKEN')
 sql = data_storage()
+sql_h = sql_help() #用於統一轉換某些變數，避免與SQLite語法衝突
 logger = write_log()
 # check log file
 while True:
@@ -45,17 +46,16 @@ async def on_ready():
 	logger.write(f'logged as {client.user}')
 	logger.write(f'server list {", ".join([element.name for element in client.guilds])}')
 	for guild in client.guilds:
-		logger.write(f'create table name:{guild.id}')
-		await sql.create_table_p(str(guild.id),{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
+		await sql.create_table_p(sql_h.tran_table_name(guild.id),{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
 @client.event
 async def on_message(message):
 	guild_id = str(message.guild.id)
 	if not message.author.bot:
 		user_sql_info = sql.select_id(guild_id,message.author.id,'ID',True)
 		if user_sql_info:
-			await sql.update(guild_id,{'speaktimes':user_sql_info.speaktimes+1})
+			await sql.update(sql_h.tran_table_name(guild.id),{'speaktimes':user_sql_info.speaktimes+1})
 		else:
-			await sql.insert_into(guild_id,['ID','name','speaktimes'],[message.author.id,message.author.name,1])
+			await sql.insert_into(sql_h.tran_table_name(guild.id),['ID','name','speaktimes'],[message.author.id,message.author.name,1])
 @bot.command()
 async def lsuser(ctx):
 	await ctx.send(await lsuser().lsuser(ctx))
