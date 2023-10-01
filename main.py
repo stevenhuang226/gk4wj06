@@ -1,4 +1,4 @@
-import discord,os,datetime,asyncio
+import discord,os,datetime
 from discord.ext import commands
 from dotenv import load_dotenv
 from lib.logger import write_log

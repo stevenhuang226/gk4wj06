@@ -1,4 +1,5 @@
 # 使用說明
+- 必須有包 discord python-dotenv datetime sqlite3 os
 - 需要提供一個log檔案作為log紀錄使用（可選）
 - 必須提供一個SQLite3可以使用的檔案，作為SQLite3資料庫使用
 - 必須在執行目錄下，有一個.env檔案，內容為 DC_TOKEN=你的discord機器人token
