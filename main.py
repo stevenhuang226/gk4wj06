@@ -45,6 +45,7 @@ async def on_ready():
 	logger.write(f'logged as {client.user}')
 	logger.write(f'server list {", ".join([element.name for element in client.guilds])}')
 	for guild in client.guilds:
+		logger.write('create table name:',guild.id)
 		await sql.create_table_p(str(guild.id),{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
 @client.event
 async def on_message(message):
