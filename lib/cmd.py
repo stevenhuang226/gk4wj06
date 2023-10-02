@@ -5,12 +5,12 @@ class lsuser:
 	async def man(self):
 		return 'list all of member in this guild\n顯示此伺服器內的所有成員'
 class lssql:
+	from data import *
 	async def sql_select(self,message,sql_name,arg_list):
 		"""
 		message => 指令內容
 		arg_list => 輸入一個list（通常為使用者輸入的指令，然後切割為list）
 		"""
-		from data import *
 		sql = data_storage()
 		sql.init(sql_name)
 		guild_id = sql_help().tran_table_name(message.guild.id)
