@@ -49,16 +49,24 @@ async def on_ready():
 		await sql.create_table_p(sql_h.tran_table_name(guild.id),{'ID':'INTEGER PRIMARY KEY','name':'TEXT','speaktimes':'INTEGER'})
 @client.event
 async def on_message(message):
-	guild_id = str(message.guild.id)
+	guild_id = sql_h.tran_table_name(message.guild.id)
 	if not message.author.bot:
-		user_sql_info = await sql.select_id(sql_h.tran_table_name(guild_id),message.author.id,'ID',True)
-		if user_sql_info:
-			await sql.update(sql_h.tran_table_name(guild_id),{'speaktimes':user_sql_info['speaktimes']+1},f"ID == {message.author.id}")
+		if not message.startwith(">"):
+			user_sql_info = await sql.select_id(guild_id,message.author.id,'ID',True)
+			if user_sql_info:
+				await sql.update(guild_id,{'speaktimes':user_sql_info['speaktimes']+1},f"ID == {message.author.id}")
+			else:
+				await sql.insert_into(guild_id,['ID','name','speaktimes'],[message.author.id,message.author.name,1])
 		else:
-			await sql.insert_into(sql_h.tran_table_name(guild_id),['ID','name','speaktimes'],[message.author.id,message.author.name,1])
-@bot.command()
-async def lsuser(ctx):
-	await ctx.send(await lsuser().lsuser(ctx))
-async def lssql(ctx,*arg):
-	await ctx.send(await lssql().botshow(ctx,db_file,sql_h.tran_table_name(ctx.guild.id),list(arg)))
+			split_text = message.split(' ')
+			if split_text[1] == 'lsuser':
+				if not split_text[2] == 'man':
+					await message.channel.send(lsuser().lsuser(split_text[1]))
+				else:
+					await message.channel.send(lsuser().man())
+			if split_text[1] == 'lssql':
+				if not split_text[2] == 'man':
+					await message.channel.send(lssql().sql_select(message,db_file,splite_text[2:]))
+				else:
+					await message.channel.sned(lssql().man())
 client.run(TOKEN)
