@@ -2,8 +2,7 @@ import discord,os,datetime
 from discord.ext import commands
 from dotenv import load_dotenv
 from lib.logger import write_log
-from lib.cmd import *
-from lib.data import *
+from lib.function import *
 load_dotenv()
 TOKEN = os.getenv('DC_TOKEN')
 sql = data_storage()

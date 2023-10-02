@@ -12,6 +12,5 @@
 
 # download
 - curl -o filename "https://raw.githubusercontent.com/stevenhuang226/gk4wj06/main/main.py"
-- curl -o lib/cmd.py "https://raw.githubusercontent.com/stevenhuang226/gk4wj06/main/lib/cmd.py"
-- curl -o lib/data.py "https://raw.githubusercontent.com/stevenhuang226/gk4wj06/main/lib/data.py"
+- curl -o lib/function.py "https://raw.githubusercontent.com/stevenhuang226/gk4wj06/main/lib/function.py"
 - curl -o lib/logger.py "https://raw.githubusercontent.com/stevenhuang226/gk4wj06/main/lib/logger.py"
