@@ -156,13 +156,14 @@ class sql_help:
 		return (f"_{str(table_name)}")
 
 # commands
-class lsuser:
+class cmds:
+	#顯示使用者相關資料
 	async def lsuser(self,message):
 		user_list = '\n'.join(message.guild.members)
 		return user_list
-	async def man(self):
+	async def lsuser_man(self):
 		return 'list all of member in this guild\n顯示此伺服器內的所有成員'
-class lssql:
+	#與sql相關
 	async def sql_select(self,message,sql_name,arg_list):
 		"""
 		message => 指令內容
@@ -188,7 +189,7 @@ class lssql:
 			else:
 				row = sql.select(guild_id,f"name == {arg_list[1]}")
 				return f"{row[1]} {row[2]}"
-	async def man(self):
+	async def lssql_man(self):
 		return '''speaktimes: -a all 顯示全部使用者的說話次數（已紀錄）
 			user_name 顯示[user_name]的說話次數（已紀錄）
 	userid -a all 顯示全部使用著對應的id(discord)（曾經講過話的才會被紀錄）

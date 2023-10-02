@@ -8,6 +8,7 @@ TOKEN = os.getenv('DC_TOKEN')
 sql = data_storage()
 sql_h = sql_help() #用於統一轉換某些變數，避免與SQLite語法衝突
 logger = write_log()
+cmds = cmds()
 # check log file
 while True:
 	log_file = input('input log file name[name => log_file | n => no log]:')
@@ -60,12 +61,12 @@ async def on_message(message):
 			split_text = message.content.split(' ')
 			if split_text[1] == 'lsuser':
 				if not split_text[2] == 'man':
-					await message.channel.send(lsuser().lsuser(message))
+					await message.channel.send(cmds.lsuser(message))
 				else:
-					await message.channel.send(lsuser().man())
+					await message.channel.send(cmds.lsuser_man())
 			if split_text[1] == 'lssql':
 				if not split_text[2] == 'man':
-					await message.channel.send(lssql().sql_select(message,db_file,splite_text[2:]))
+					await message.channel.send(cmds.sql_select(message,db_file,splite_text[2:]))
 				else:
-					await message.channel.sned(lssql().man())
+					await message.channel.sned(cmds.lssql_man())
 client.run(TOKEN)
