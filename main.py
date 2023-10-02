@@ -50,14 +50,14 @@ async def on_ready():
 async def on_message(message):
 	guild_id = sql_h.tran_table_name(message.guild.id)
 	if not message.author.bot:
-		if not message.startwith(">"):
+		if not message.content.startwith(">"):
 			user_sql_info = await sql.select_id(guild_id,message.author.id,'ID',True)
 			if user_sql_info:
 				await sql.update(guild_id,{'speaktimes':user_sql_info['speaktimes']+1},f"ID == {message.author.id}")
 			else:
 				await sql.insert_into(guild_id,['ID','name','speaktimes'],[message.author.id,message.author.name,1])
 		else:
-			split_text = message.split(' ')
+			split_text = message.content.split(' ')
 			if split_text[1] == 'lsuser':
 				if not split_text[2] == 'man':
 					await message.channel.send(lsuser().lsuser(split_text[1]))
