@@ -38,7 +38,7 @@ while True:
 # 初始化discord參數
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
-bot = commands.Bot(command_prefix='$',case_insensitive=True,intents=intents)
+bot = commands.Bot(command_prefix='>',intents=intents)
 
 
 @client.event
@@ -59,7 +59,6 @@ async def on_message(message):
 @bot.command()
 async def lsuser(ctx):
 	await ctx.send(await lsuser().lsuser(ctx))
-@bot.command()
 async def lssql(ctx,*arg):
 	await ctx.send(await lssql().botshow(ctx,db_file,sql_h.tran_table_name(ctx.guild.id),list(arg)))
 client.run(TOKEN)
